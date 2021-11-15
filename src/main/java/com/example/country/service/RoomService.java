@@ -15,8 +15,8 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
-
-@Service
+//
+//@Service
 @RequiredArgsConstructor
 public class RoomService {
 

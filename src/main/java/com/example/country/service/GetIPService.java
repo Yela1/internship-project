@@ -9,7 +9,7 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 public class GetIPService {
 
     public InetAddress getIp(String uri) throws IOException {

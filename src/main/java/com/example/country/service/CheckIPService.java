@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.InetAddress;
 
-@Component
-@Getter
+//@Component
 public class CheckIPService {
 
     @Value("${web.service.client.key}")

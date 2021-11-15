@@ -1,7 +1,9 @@
 package com.example.country.controller;
 
+import com.example.country.models.Country;
 import com.example.country.models.Room;
 import com.example.country.service.CheckIPService;
+import com.example.country.service.CountryService;
 import com.example.country.service.GetIPService;
 import com.example.country.service.RoomService;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +28,19 @@ public class RestApi {
 
     private final GetIPService getIPService;
 
+    private final CountryService countryService;
+
     @Value("${check.ip}")
     private String uri;
 
     @GetMapping
     public ResponseEntity<List<Room>> getAllRooms() {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.getAll());
+    }
+
+    @GetMapping("/country")
+    public ResponseEntity<List<Country>> getAllCountry() {
+        return ResponseEntity.status(HttpStatus.OK).body(countryService.getAll());
     }
 
 
