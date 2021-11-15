@@ -2,7 +2,7 @@ package com.example.country.service;
 
 
 import com.example.country.models.Country;
-import com.example.country.repository.CountryRepository;
+import com.example.country.repository.country.CountryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

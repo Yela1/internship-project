@@ -1,19 +1,21 @@
 package com.example.country;
 
 import com.example.country.models.Country;
-import com.example.country.repository.CountryRepository;
-import lombok.RequiredArgsConstructor;
+import com.example.country.repository.country.CountryRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 @SpringBootApplication
 public class CountryApplication {
 
 //	private final CountryRepository countryRepository;
-
+//
 //	public CountryApplication(CountryRepository countryRepository) {
 //		this.countryRepository = countryRepository;
 //	}
@@ -21,7 +23,7 @@ public class CountryApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CountryApplication.class, args);
 	}
-
+//
 //	@PostConstruct
 //	private void init() {
 //		String[] countryCodes = Locale.getISOCountries();

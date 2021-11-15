@@ -1,4 +1,4 @@
-package com.example.country.repository;
+package com.example.country.repository.country;
 
 import com.example.country.models.Country;
 import org.springframework.data.jpa.repository.JpaRepository;

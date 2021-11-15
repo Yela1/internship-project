@@ -1,4 +1,4 @@
-package com.example.country.repository;
+package com.example.country.repository.room;
 
 import com.example.country.models.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
-    List<Room> findAll();
 }

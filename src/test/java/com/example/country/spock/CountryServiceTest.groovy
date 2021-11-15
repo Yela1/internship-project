@@ -1,7 +1,7 @@
 package com.example.country.spock
 
 import com.example.country.models.Country
-import com.example.country.repository.CountryRepository
+import com.example.country.repository.country.CountryRepository
 import com.example.country.service.CountryService
 import spock.lang.Specification
 

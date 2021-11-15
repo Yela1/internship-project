@@ -2,7 +2,7 @@ package com.example.country.spock
 
 import com.example.country.exception.RoomNotFoundException
 import com.example.country.models.Room
-import com.example.country.repository.RoomRepository
+import com.example.country.repository.room.RoomRepository
 import com.example.country.service.RoomService
 import spock.lang.Specification
 
@@ -25,7 +25,7 @@ class RoomServiceTest extends Specification {
             def result = roomService.get(1L)
 
         then:
-            0 * roomRepository.findById(1L)
+            1 * roomRepository.findById(1L)
 
         and:
             result.getId() == 1L
@@ -108,7 +108,7 @@ class RoomServiceTest extends Specification {
     def "updateThrownExceptionIfRoomDoesn'tExist"(){
 
         given:
-            roomRepository.findById(1L) >> Optional.empty();
+            roomRepository.findById(1L) >> Optional.empty()
 
         when:
             roomService.update(1L)

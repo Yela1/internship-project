@@ -2,16 +2,13 @@ package com.example.country.service;
 
 import com.example.country.exception.RoomNotFoundException;
 import com.example.country.models.Room;
-import com.example.country.repository.RoomRepository;
+import com.example.country.repository.room.RoomRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,7 +52,7 @@ public class RoomServiceTest {
     public void getShouldThrowExceptionWhenRoomDoesntExist() {
         Room room = new Room(1L,"KZ",true,"KZ");
 
-        given(roomRepository.findById(anyLong())).willReturn(Optional.ofNullable(null));
+        given(roomRepository.findById(anyLong())).willReturn(Optional.empty());
         roomService.get(room.getId());
     }
 //

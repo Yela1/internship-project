@@ -2,7 +2,7 @@ package com.example.country.service;
 
 import com.example.country.exception.RoomNotFoundException;
 import com.example.country.models.Room;
-import com.example.country.repository.RoomRepository;
+import com.example.country.repository.room.RoomRepository;
 import com.maxmind.geoip2.WebServiceClient;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import lombok.RequiredArgsConstructor;

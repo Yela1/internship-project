@@ -2,7 +2,6 @@ package com.example.country.controller;
 
 import com.example.country.models.Room;
 import com.example.country.service.CountryService;
-import com.example.country.service.GetIPService;
 import com.example.country.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import java.io.IOException;
 public class MainController {
     private final RoomService roomService;
     private final CountryService countryService;
-    private final GetIPService getIPService;
 
     @GetMapping("/")
     public String getAll(Model model) {
@@ -63,9 +61,6 @@ public class MainController {
     public ModelAndView addRoom(Room room) {
         roomService.create(room);
         return new ModelAndView("redirect:/");
-    }
-    public static void main(String[] args) throws IOException {
-
     }
 
 

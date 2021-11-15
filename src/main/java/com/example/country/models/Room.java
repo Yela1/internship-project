@@ -17,10 +17,13 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "status")
     private boolean status=true;
 
+    @Column(name = "countryCode")
     private String countryCode;
     public Room(String name, String countryCode){
         this.name = name;
