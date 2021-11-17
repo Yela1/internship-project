@@ -1,9 +1,8 @@
-package com.example.country.spock
+package com.example.country.service
 
 import com.example.country.exception.RoomNotFoundException
 import com.example.country.models.Room
 import com.example.country.repository.room.RoomRepository
-import com.example.country.service.RoomService
 import spock.lang.Specification
 
 
@@ -13,26 +12,23 @@ class RoomServiceTest extends Specification {
 
     RoomService roomService = new RoomService(roomRepository)
 
-    def "get"() {
+    def "get should return room IF found"() {
 
         given:
-            Room room = new Room(id: 1L, name: "Sdsd", status: true, countryCode: "sdsds")
-
-        and:
-            roomRepository.findById(1L) >> Optional.of(room)
+            Room room = new Room(id: 1L, name: "Kazakhstan", status: true, countryCode: "KZ")
 
         when:
             def result = roomService.get(1L)
 
         then:
-            1 * roomRepository.findById(1L)
+            1 * roomRepository.findById(1L) >> Optional.of(room)
 
         and:
             result.getId() == 1L
 
     }
 
-    def "getRoomNotFoundException"() {
+    def "get should throw exception IF room doesnt exist"() {
 
         given:
             roomRepository.findById(1L) >> Optional.empty()
@@ -45,7 +41,7 @@ class RoomServiceTest extends Specification {
 
     }
 
-    def "getAllRooms"() {
+    def "getAll should return all rooms"() {
 
         given:
             def room1 = new Room(id: 1L, name: "TEST1", status: true, countryCode: "TEST1")
@@ -62,7 +58,7 @@ class RoomServiceTest extends Specification {
 
     }
 
-    def "create"() {
+    def "create method should create room"() {
 
         given:
             Room room = new Room(id: 1L, name: "TEST1", status: true, countryCode: "TEST1")
@@ -78,7 +74,7 @@ class RoomServiceTest extends Specification {
 
     }
 
-    def "deleteThrownExceptionWhenRoomDoesntExist"() {
+    def "delete should throw exception if room doesnt exist"() {
 
         given:
             roomRepository.findById(1L) >> Optional.empty()
@@ -91,7 +87,7 @@ class RoomServiceTest extends Specification {
 
     }
 
-    def "delete"() {
+    def "delete should remove room if exist"() {
 
         given:
             Room room = new Room(id: 1L, name: "TEST1", status: true, countryCode: "TEST1")
@@ -105,13 +101,13 @@ class RoomServiceTest extends Specification {
 
     }
 
-    def "updateThrownExceptionIfRoomDoesn'tExist"(){
+    def "update should throw exception if room doesnt exist"(){
 
         given:
             roomRepository.findById(1L) >> Optional.empty()
 
         when:
-            roomService.update(1L)
+            roomService.updateStatus(1L)
 
         then:
             thrown(RoomNotFoundException)
@@ -123,18 +119,17 @@ class RoomServiceTest extends Specification {
             Room room = new Room(id: 1L, name: "TEST1", status: true, countryCode: "TEST1")
 
         when:
-            roomService.update(1L)
+            roomService.updateStatus(1L)
 
-        then:
+        then: "We find the room we need, and change the status of the room to another"
             1 * roomRepository.findById(1L) >> Optional.of(room)
             1 * roomRepository.save(room) >> room
 
         and:
-            println(room.isStatus())
             !room.isStatus()
     }
 
-    def "createAll"(){
+    def "createAll should create all rooms "(){
         given:
             Room room1 = new Room(id: 1L, name: "TEST1", status: true, countryCode: "TEST1")
             Room room2 = new Room(id: 2L, name: "TEST2", status: true, countryCode: "TEST2")
@@ -147,9 +142,8 @@ class RoomServiceTest extends Specification {
             1 * roomRepository.saveAll(rooms) >> rooms
 
         and:
-            for (int i = 0; i < rooms.size(); i++) {
-                rooms[i] == result[i]
-            }
+            rooms[0] == result[0]
+            rooms[1] == result[1]
     }
 
 

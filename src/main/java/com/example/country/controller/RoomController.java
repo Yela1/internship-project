@@ -1,9 +1,7 @@
 package com.example.country.controller;
 
-import com.example.country.models.Country;
 import com.example.country.models.Room;
 import com.example.country.service.CheckIPService;
-import com.example.country.service.CountryService;
 import com.example.country.service.GetIPService;
 import com.example.country.service.RoomService;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/rooms")
 @RequiredArgsConstructor
-public class RestApi {
+public class RoomController {
 
     private final RoomService roomService;
 
     private final CheckIPService checkIPService;
 
     private final GetIPService getIPService;
-
-    private final CountryService countryService;
 
     @Value("${check.ip}")
     private String uri;
@@ -37,12 +33,6 @@ public class RestApi {
     public ResponseEntity<List<Room>> getAllRooms() {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.getAll());
     }
-
-    @GetMapping("/country")
-    public ResponseEntity<List<Country>> getAllCountry() {
-        return ResponseEntity.status(HttpStatus.OK).body(countryService.getAll());
-    }
-
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Room> getRoom(@PathVariable("id") Long id) throws IOException {
@@ -73,7 +63,7 @@ public class RestApi {
 
     @PutMapping("/{id}")
     public ResponseEntity<Room> updateRoom(@PathVariable("id") Long id) {
-        roomService.update(id);
+        roomService.updateStatus(id);
         return ResponseEntity.status(HttpStatus.OK).body(roomService.get(id));
     }
 }

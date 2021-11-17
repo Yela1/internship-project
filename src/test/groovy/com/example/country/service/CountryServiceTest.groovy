@@ -1,16 +1,16 @@
-package com.example.country.spock
+package com.example.country.service
 
 import com.example.country.models.Country
 import com.example.country.repository.country.CountryRepository
-import com.example.country.service.CountryService
 import spock.lang.Specification
 
 class CountryServiceTest extends Specification{
+
     CountryRepository countryRepository = Mock()
 
     CountryService countryService = new CountryService(countryRepository)
 
-    def "getAll"(){
+    def "getAll should return list of countries"(){
         given:
             Country country1 = new Country(name: "KAZAKHSTAN", code: "KZ")
             Country country2 = new Country(name: "RUSSIA", code: "RU")
@@ -23,9 +23,8 @@ class CountryServiceTest extends Specification{
             1 * countryRepository.findAll() >> countries
 
         and:
-            for(int i = 0; i < countries.size(); i++) {
-                countries[i] == result[i]
-            }
+            countries[0] == result[0]
+            countries[1] == result[1]
 
     }
 }

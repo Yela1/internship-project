@@ -1,6 +1,6 @@
-package com.example.country.spock
+package com.example.country.controller
 
-import com.example.country.controller.RestApi
+
 import com.example.country.models.Room
 import com.example.country.service.CheckIPService
 import com.example.country.service.GetIPService
@@ -16,18 +16,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup
 
-class MainControllerTest extends Specification{
+class RoomControllerTest extends Specification{
 
     RoomService roomService = Mock()
 
-    CheckIPService checkIPService = Mock() {
-        getClientId() >> 11
-
-    }
+    CheckIPService checkIPService = Mock()
 
     GetIPService getIPService = Mock()
 
-    RestApi restApi = new RestApi(roomService, checkIPService, getIPService)
+    RoomController restApi = new RoomController(roomService, checkIPService, getIPService)
 
     MockMvc mockMvc = standaloneSetup(restApi).build()
 
@@ -40,7 +37,7 @@ class MainControllerTest extends Specification{
     }
 
 
-    def "getAllRoom"(){
+    def "getAllRoom should return list of room as json"(){
         given:
             def room = new Room(name: "Kazakhstan", countryCode: "KZ")
             def room1 = new Room(name:"Russia", countryCode: "RU")
@@ -58,7 +55,7 @@ class MainControllerTest extends Specification{
 
     }
 
-    def "getForbidden"(){
+    def "getRoom should return status 403"(){
         given:
             def room = new Room(id: 1L,name: "Kazakhstan", countryCode: "KZ")
             def stringIp = "217.196.24.251"
@@ -73,7 +70,7 @@ class MainControllerTest extends Specification{
             1 * checkIPService.checkIp( room, ip) >> false
     }
 
-    def "getRoom"(){
+    def "getRoom should return status 200"(){
         given:
             def room = new Room(id: 1L,name: "Kazakhstan", countryCode: "KZ")
             def stringIp = "217.196.24.251"
@@ -92,7 +89,7 @@ class MainControllerTest extends Specification{
             1 * checkIPService.checkIp( room, ip) >> true
     }
 
-    def "createRoom"() {
+    def "createRoom should return status 201"() {
         given:
             def room = new Room(id:1L,name: "KAZAKHSTAN",status: true, countryCode: "KZ")
             def json = new ObjectMapper().writeValueAsString(room)
@@ -110,7 +107,7 @@ class MainControllerTest extends Specification{
     }
 
 
-    def createAll(){
+    def "createAll should return status 201"(){
         given:
             def room1 = new Room(id:1L,name: "KAZAKHSTAN",status: true, countryCode: "KZ")
             def room2 = new Room(id:1L,name: "KAZAKHSTAN",status: true, countryCode: "KZ")
@@ -129,7 +126,7 @@ class MainControllerTest extends Specification{
             1 * roomService.createAll(array) >> array
     }
 
-    def "deleteRoom"(){
+    def "deleteRoom should delete and return status 204"(){
         when:
             mockMvc.perform(delete("/rooms/{id}",1L)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -141,7 +138,7 @@ class MainControllerTest extends Specification{
 
     }
 
-    def "updateRoom"(){
+    def "updateRoom should update and return status 200"(){
         given:
             def room = new Room(id:1L,name: "KAZAKHSTAN",status: true, countryCode: "KZ")
 
@@ -150,7 +147,7 @@ class MainControllerTest extends Specification{
                     .andExpect(status().isOk())
 
         then:
-            1 * roomService.update(1L)
+            1 * roomService.updateStatus(1L)
             1 * roomService.get(1L) >> room
 
     }

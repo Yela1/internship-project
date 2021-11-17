@@ -1,11 +1,8 @@
-package com.example.country.spock
+package com.example.country.service
 
 import com.example.country.models.Room
-import com.example.country.service.CheckIPService
 import org.springframework.test.util.ReflectionTestUtils
 import spock.lang.Specification
-
-import com.maxmind.geoip2.exception.GeoIp2Exception
 
 class CheckIPServiceTest extends Specification {
 
@@ -18,9 +15,10 @@ class CheckIPServiceTest extends Specification {
         ReflectionTestUtils.setField(checkIPService, "host", "geolite.info")
 
     }
-    def "get false when country is different"(){
+    def "checkIp should return false when country is different"(){
         given:
             def room = new Room(1L, "RUSSIA", true, "RU")
+            "ip for Kazakhstan"
             def ip = InetAddress.getByName("2.132.176.34")
         when:
             def result = checkIPService.checkIp(room, ip)
@@ -29,7 +27,7 @@ class CheckIPServiceTest extends Specification {
             !result
     }
 
-    def "get exception if client id wrong"(){
+    def "checkIp should throw exceptions if credentials is wrong"(){
         given:
             ReflectionTestUtils.setField(checkIPService, "clientId", 1)
             def room = new Room(1L, "RUSSIA", true, "RU")
@@ -39,12 +37,11 @@ class CheckIPServiceTest extends Specification {
             def result = checkIPService.checkIp(room,ip)
 
         then:
-
             !result
 
     }
 
-    def "checkIp"(){
+    def "checkIp should return true if everything is ok"(){
         given:
             def room = new Room(1L, "KAZAKHSTAN", true, "KZ")
             def ip = InetAddress.getByName("2.132.176.34")

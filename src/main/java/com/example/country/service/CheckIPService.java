@@ -3,14 +3,11 @@ package com.example.country.service;
 import com.example.country.models.Room;
 import com.maxmind.geoip2.WebServiceClient;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.InetAddress;
 
-//@Component
 public class CheckIPService {
 
     @Value("${web.service.client.key}")
